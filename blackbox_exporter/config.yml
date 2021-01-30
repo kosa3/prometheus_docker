@@ -1,0 +1,20 @@
+modules:
+  icmp:
+    prober: icmp
+    icmp:
+      preferred_ip_protocol: ip4
+  dns_check:
+    prober: dns
+    dns:
+      query_name: "www.prometheus.io"
+      query_type: "A"
+      validate_answer_rrs:
+        fail_if_not_matches_regexp:
+          - "www.prometheus.io.*[172.67.191.149|104.21.84.118]"
+  ssl_redirect_check:
+    prober: http
+    timeout: 30s
+    http:
+      preferred_ip_protocol: ip4
+      valid_status_codes: [200]
+      fail_if_not_ssl: true

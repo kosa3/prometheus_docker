@@ -1,0 +1,4 @@
+- labels:
+    module: dns_check
+  targets:
+    - "8.8.8.8"

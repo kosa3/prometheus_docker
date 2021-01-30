@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - data-prometheus:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./blackbox_exporter:/etc/blackbox_exporter
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - 9090:9090
+  node-exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - 9100:9100
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+  alertmanager:
+    image: prom/alertmanager:latest
+    command: "--config.file=/etc/alertmanager/config.yml"
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    ports:
+      - 9093:9093
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    volumes:
+      - ./blackbox_exporter:/etc/blackbox_exporter
+    ports:
+      - 9115:9115
+
+volumes:
+  data-prometheus:
+    driver: local

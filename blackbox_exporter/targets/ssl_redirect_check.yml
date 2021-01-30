@@ -1,0 +1,4 @@
+- labels:
+    module: ssl_redirect_check
+  targets:
+    - "http://prometheus.io"

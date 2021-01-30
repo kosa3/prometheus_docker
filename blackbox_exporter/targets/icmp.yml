@@ -1,0 +1,4 @@
+- labels:
+    module: icmp
+  targets:
+    - "www.google.com"
